@@ -1,0 +1,16 @@
+name: Check HTML File
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+
+      - name: Print file content
+        run: cat index.html
