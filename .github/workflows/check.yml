@@ -1,16 +1,29 @@
-name: Check HTML File
+name: Lint HTML File
 
 on:
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
-  check-html:
+  lint-html:
+    name: Run HTMLLint
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Print file content
-        run: cat index.html
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Validate index.html
+        run: htmlhint index.html
